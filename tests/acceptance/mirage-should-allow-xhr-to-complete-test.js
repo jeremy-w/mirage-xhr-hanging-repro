@@ -16,7 +16,7 @@ test('visit /', function(assert) {
   console.log('start of test: visit /');
   visit('/').then(() => console.log('visited /'));
   andThen(() => {
-     console.log('visit /: current route name is:', currentRouteName());
+    console.log('visit /: current route name is:', currentRouteName());
     assert.equal(currentRouteName(), 'search', 'should have reached search route and not still be loading');
     console.log('end of test: visit /');
   });
