@@ -10,7 +10,7 @@ moduleForAcceptance('Acceptance | Mirage should allow XHR to complete', {
     this.pretender.get('/', function() {
       var value = ++counter;
       console.log('mirage: intercepted XHR GET for "/": returning response forthwith');
-      return 'Mirage Response #' + value + ' Appears';
+      return [200, {'Content-Type': 'text/plain'}, 'Mirage Response #' + value + ' Appears'];
     });
     console.log('lo, a new test begins');
   },
