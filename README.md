@@ -2,6 +2,21 @@ This is a demo app for the ember-cli-mirage issue
 [mirage not working for mocking ember ajax calls](https://github.com/samselikoff/ember-cli-mirage/issues/635).
 It has been created by reducing an app exhibiting the problem down to a far smaller example case that still exhibits the problem.
 
+## UPDATE: Issue Resolved
+- The issue I was seeing with Mirage in the app this was minimized from was due
+  to an older Pretender version still being pulled in by Bower. Running
+  `ember g ember-cli-mirage` and then `bower install` and picking the new
+  versions for any resolutions fixed the issue.
+- The issue I was seeing in my minimization case was due to the return values of
+  my factories. In both the Mirage (`master`)and raw PretenderJS branches
+  (`drop-mirage-for-pretender`), the return value was tripping an exception,
+  which interrupted the XHR state machine. This exception was silently swallowed
+  somewhere in the stack (jQuery's stuff?), which made it appear the same as the
+  other issue symptomatically. Trapping on `debugger` in the handler, then
+  flipping on "stop on exceptions" and "yes really all of them even caught ones"
+  allowed to discover the error that should have been shown and adjust the
+  responses, at which point the tests passed.
+
 ## Expected Behavior
 With Mirage disabled (set `MIRAGE_ENABLED_FOR_TESTING` to `false` in config/environment.js), the test console logs look like:
 
